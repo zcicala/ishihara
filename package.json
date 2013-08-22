@@ -1,0 +1,9 @@
+{
+  "name": "ishihara",
+  "description": "Geneerate Ishihara Plates both randomly and based on user input",
+  "version": "0.0.1",
+  "private": true,
+  "dependencies": {
+    "express": "3.x"
+  }
+}
