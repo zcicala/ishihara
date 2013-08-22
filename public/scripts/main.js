@@ -21,6 +21,6 @@ define(["canvasManager","mask"],function(cm,maskGenerator){
 	
 	
 	
-	fn(5,10,0,10,50,"",['188','276'],['818','937']);
+	fn(5,10,0,10,50,"",['161','181'],['C33','A33']);
 	return fn;
 });
