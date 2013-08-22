@@ -25,8 +25,8 @@ define(["canvasManager","mask"],function(cm,maskGenerator){
 	        results = regex.exec(location.search);
 	    return results == null ? "" : decodeURIComponent(results[1].replace(/\+/g, " "));
 	}
-	var colorgroup1=getParameterByName("colorGroup1")?JSON.parse(getParameterByName("colorGroup1")):['161','181'];
-	var colorgroup2=getParameterByName("colorGroup2")?JSON.parse(getParameterByName("colorGroup2")):['C33','A33'];
+	var colorgroup1=getParameterByName("color1")?JSON.parse(getParameterByName("color1")):['161','181'];
+	var colorgroup2=getParameterByName("color2")?JSON.parse(getParameterByName("color2")):['C33','A33'];
 	
 	fn(5,10,0,10,50,"",colorgroup1,colorgroup2);
 	return fn;
