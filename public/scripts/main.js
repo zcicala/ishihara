@@ -77,7 +77,7 @@ define(["canvasManager","mask","underscore"],function(cm,maskGenerator,_){
 	
 	create(_.extend(defaults,config));
 	
-	
+	$("svg").click(function(){ $(".ColorB").toggle();});
 	
 	return update	;
 });
