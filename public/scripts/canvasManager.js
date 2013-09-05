@@ -1,23 +1,31 @@
-define([],function(){
+define(["jquery"],function($){
 	return function(canvasWidth,canvasHeight,minDotSize,maxDotSize,spaceBuffer,randomness,passes,colorCallback){
-	    var canvas=document.getElementById("myCanvas");
+	    var canvas=document.getElementById("myCanvas")
   	  	
 	    canvas.width=canvasWidth;
 		canvas.height=canvasHeight;
 		
-	    var context = canvas.getContext('2d');
+	   // var context = canvas.getContext('2d');
 		
 		
 		var pixelLocations={};
-	    var drawCircle=function(centerX,centerY,radius,color){
+	    var drawCircle=function(centerX,centerY,radius,decorator,newCanvas){
 			  var x,y; 
-	          context.beginPath();
-	          context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
-	          context.fillStyle = color;
-	          context.fill();
-	          context.lineWidth = 0;
-	          context.strokeStyle = color;
-	          context.stroke();
+	          // context.beginPath();
+// 	          context.arc(centerX, centerY, radius, 0, 2 * Math.PI, false);
+// 	          context.fillStyle = color;
+// 	          context.fill();
+// 	          context.lineWidth = 0;
+// 	          context.strokeStyle = color;
+// 	          context.stroke();
+
+			  var circle=document.createElementNS("http://www.w3.org/2000/svg", "circle");
+ 		      circle.setAttributeNS(null,"cx",centerX);
+ 		      circle.setAttributeNS(null,"cy",centerY);
+ 		      circle.setAttributeNS(null,"r",radius);
+			  circle = decorator(circle);
+			  
+			  $(newCanvas).append(circle);
 		  
 			  //We want to record where exactly our circle was so that we can find it later without hav
 			  //having to read the canvas
@@ -33,13 +41,7 @@ define([],function(){
 		  }
 			  
 	     var getDistance=function(location, maxDistance){
-			var id = context.createImageData(1,1); // only do this once per page
-			var d  = id.data;                        // only do this once per page
-			d[0]   = 255;
-			d[1]   = 0;
-			d[2]   = 0;
-			d[3]   = 200;
-		
+
 	        //Only check up to 
 	        for(var s=1;s<maxDistance;s++){
             
@@ -94,7 +96,9 @@ define([],function(){
 	        }
 	    }
 	
-		var fillCanvasRandom=function(min,max,buffer,count,colorFun){
+		var fillCanvasRandom=function(min,max,buffer,count,decorator){
+
+            
 			for(var i=1;i<count;i++){
 				var x=Math.floor((Math.random()*(canvasWidth-10))+5);
 				var y=Math.floor((Math.random()*(canvasHeight-10))+5);
@@ -102,12 +106,13 @@ define([],function(){
 				closest=closest-buffer;
 				if(closest>(min)){
 					var radius=Math.floor((Math.random()*(closest-min))+min);
-					drawCircle(x,y,radius,colorFun(x,y))
+					drawCircle(x,y,radius,decorator,canvas)
 				}
-	
 			}
+			
 		}
-		var fillCanvasRadial=function(min,max,buffer,randomness,passes,colorFun){
+		var fillCanvasRadial=function(min,max,buffer,randomness,passes,decorator){
+			var newCanvas= $("<svg ></svg>")
 			var maxR=(canvasWidth/2 ) - 20;
 			  for(var r=1;r<=maxR;r++){
 	  	        for(var theta=0;theta<=360*passes;theta+=5*passes*maxR/r){
@@ -122,13 +127,14 @@ define([],function(){
 	  		      closest=closest-buffer;
 	  			  if(closest>(min)){
 	  					var radius=Math.floor((Math.random()*(closest-min))+min);
-	  					drawCircle(x,y,radius,colorFun(x,y))
+	  					drawCircle(x,y,radius,decorator,canvas)
 	  			  }
 				  
 		  
 			  }
 	        }
-			
+		 // $(canvas).replaceWith(newCanvas);
+		 // canvas=newCanvas;
 		}
 		
         

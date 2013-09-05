@@ -28,7 +28,9 @@ define([],function(){
 				returnData[x+"-"+y]=true;
 			}
 		}
-		return returnData;
+		return function(x,y){
+			return 	returnData[x+"-"+y];
+		};
 		
 	}
 })
