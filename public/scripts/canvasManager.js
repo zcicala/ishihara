@@ -38,6 +38,8 @@ define(["jquery"],function($){
 				  
 				  }
 	          }
+
+            return circle;
 		  }
 			  
 	     var getDistance=function(location, maxDistance){
@@ -112,7 +114,8 @@ define(["jquery"],function($){
 			
 		}
 		var fillCanvasRadial=function(min,max,buffer,randomness,passes,decorator){
-			var newCanvas= $("<svg ></svg>")
+			var newCanvas= $("<svg ></svg>");
+            var circles=[];
 			var maxR=(canvasWidth/2 ) - 20;
 			  for(var r=1;r<=maxR;r++){
 	  	        for(var theta=0;theta<=360*passes;theta+=5*passes*maxR/r){
@@ -127,12 +130,14 @@ define(["jquery"],function($){
 	  		      closest=closest-buffer;
 	  			  if(closest>(min)){
 	  					var radius=Math.floor((Math.random()*(closest-min))+min);
-	  					drawCircle(x,y,radius,decorator,canvas)
+	  					circles.push(drawCircle(x,y,radius,decorator,canvas));
 	  			  }
 				  
 		  
 			  }
 	        }
+
+            return circles;
 		 // $(canvas).replaceWith(newCanvas);
 		 // canvas=newCanvas;
 		}
@@ -141,7 +146,7 @@ define(["jquery"],function($){
 		
 		//Call the fillFunction
 		//fillCanvasRandom(minDotSize,maxDotSize,spaceBuffer,dotCount,colorCallback);
-		fillCanvasRadial(minDotSize,maxDotSize,spaceBuffer,randomness,passes,colorCallback);
+		return fillCanvasRadial(minDotSize,maxDotSize,spaceBuffer,randomness,passes,colorCallback);
 	
 		
 	}
