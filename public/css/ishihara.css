@@ -1,0 +1,13 @@
+.bodyContainer{
+	position: relative;
+	width:600px;
+	padding:20px;
+}
+.colorListA{
+	position: absolute;
+	left:20px;
+}
+.colorListB{
+	position: absolute;
+	right:20px;
+}
